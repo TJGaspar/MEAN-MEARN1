@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { StockSchema } from "../models/stocktModel";
+import { StockSchema } from "../models/stockModel";
 
 const Product = mongoose.model("Stock", StockSchema);
 
@@ -9,11 +9,17 @@ export const addNewProduct = (req, res) => {
 		if (err) {
 			console.log(err);
 			res.send(err);
-		}
-		res.json({
-			product,
-			message: `${req.body.productName} was successfuly created`,
-		});
+
+			// res.json({
+			// productName: "" + newProduct.productName,
+			// errorCode: "" + err.code,
+			// errorMessage: "" + err,
+			// });
+		} else
+			res.json({
+				product,
+				message: `${req.body.productName} was successfuly created`,
+			});
 	});
 };
 
