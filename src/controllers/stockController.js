@@ -9,12 +9,6 @@ export const addNewProduct = (req, res) => {
 		if (err) {
 			console.log(err);
 			res.send(err);
-
-			// res.json({
-			// productName: "" + newProduct.productName,
-			// errorCode: "" + err.code,
-			// errorMessage: "" + err,
-			// });
 		} else
 			res.json({
 				product,
@@ -55,11 +49,44 @@ export const updateProduct = (req, res) => {
 	);
 };
 
-export const deleteProduct = (req, res) => {
-	Product.remove({ productName: req.params.productName }, (err, product) => {
-		if (err) {
-			res.send(err);
+// export const deleteProduct = (req, res) => {
+// 	Product.remove({ productName: req.params.productName }, (err, product) => {
+// 		if (err) {
+// 			res.send(err);
+// 		}
+// 		res.json({ message: `Product ${req.params.productName} was deleted` });
+// 	});
+// };
+
+export const decreaseStock = (req, res) => {
+	Product.findOne(
+		{ productName: req.params.productName }, //variável no url
+
+		(err, product) => {
+			if (err) {
+				res.send(err);
+			}
+			var bdQty = product.quantity; // Quantidade na bd
+			var newQty = req.body.quantity; //quantidade no campo
+
+			var result = bdQty - newQty;
+			product.quantity = result;
+			if (result < 0)
+				res.json({
+					message: `${product.productName} can only decrease ${newQty} items`,
+				});
+			else
+				product.save((err, product) => {
+					//saves the product with the new quantity
+					if (err) {
+						console.log(err);
+						res.send(err);
+					}
+					res.json({
+						product,
+						message: `${product.productName} was successfuly decreased to ${result}`,
+					});
+				});
 		}
-		res.json({ message: `Product ${req.params.productName} was deleted` });
-	});
+	);
 };

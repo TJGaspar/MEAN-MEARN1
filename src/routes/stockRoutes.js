@@ -4,6 +4,7 @@ import {
 	getProductWithID,
 	updateProduct,
 	deleteProduct,
+	decreaseStock,
 } from "../controllers/stockController";
 
 const routes = (app) => {
@@ -21,7 +22,8 @@ const routes = (app) => {
 		.route("/stock/:productName")
 		.get(getProductWithID)
 		.put(updateProduct)
-		.delete(deleteProduct);
+		//.delete(deleteProduct);
+		.post (decreaseStock)
 };
 
 export default routes;
