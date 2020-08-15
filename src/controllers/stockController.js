@@ -1,13 +1,19 @@
 import mongoose from "mongoose";
 import { StockSchema } from "../models/stockModel";
+import { StockErrorSchema } from "../models/stockErrorModel";
 
 const Product = mongoose.model("Stock", StockSchema);
+const Errors = mongoose.model("Error", StockErrorSchema);
 
 export const addNewProduct = (req, res) => {
 	let newProduct = new Product(req.body);
 	newProduct.save((err, product) => {
 		if (err) {
 			console.log(err);
+			let newError = new Errors(err, product);
+			newError.productName = product.productName;
+			newError.errorCode = err.errorCode;
+			//newError.errorMessage = err.
 			res.send(err);
 		} else
 			res.json({
@@ -26,28 +32,28 @@ export const getProduct = (req, res) => {
 	});
 };
 
-export const getProductWithID = (req, res) => {
-	Product.findById(req.params.productID, (err, product) => {
-		if (err) {
-			res.send(err);
-		}
-		res.json(product);
-	});
-};
+// export const getProductWithID = (req, res) => {
+// 	Product.findById(req.params.productID, (err, product) => {
+// 		if (err) {
+// 			res.send(err);
+// 		}
+// 		res.json(product);
+// 	});
+// };
 
-export const updateProduct = (req, res) => {
-	Product.findOneAndUpdate(
-		{ productName: req.params.productName },
-		req.body,
-		{ new: true, useFindAndModify: false },
-		(err, product) => {
-			if (err) {
-				res.send(err);
-			}
-			res.json({ product, message: `${req.params.productName} was updated` });
-		}
-	);
-};
+// export const updateProduct = (req, res) => {
+// 	Product.findOneAndUpdate(
+// 		{ productName: req.params.productName },
+// 		req.body,
+// 		{ new: true, useFindAndModify: false },
+// 		(err, product) => {
+// 			if (err) {
+// 				res.send(err);
+// 			}
+// 			res.json({ product, message: `${req.params.productName} was updated` });
+// 		}
+// 	);
+// };
 
 // export const deleteProduct = (req, res) => {
 // 	Product.remove({ productName: req.params.productName }, (err, product) => {
@@ -64,6 +70,7 @@ export const decreaseStock = (req, res) => {
 
 		(err, product) => {
 			if (err) {
+
 				res.send(err);
 			}
 			let bdQty = product.quantity; // Quantidade na bd
@@ -73,7 +80,7 @@ export const decreaseStock = (req, res) => {
 			product.quantity = result;
 			if (result < 0)
 				res.json({
-					message: `${product.productName} can only decrease ${newQty} items`,
+					message: `${product.productName} can only decrease ${bdQty} items`,
 				});
 			else
 				product.save((err, product) => {

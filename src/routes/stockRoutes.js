@@ -7,6 +7,10 @@ import {
 	decreaseStock,
 } from "../controllers/stockController";
 
+import {
+	getLevel,	
+} from "../controllers/stockLevelInfoController"
+
 const routes = (app) => {
 	app
 		.route("/stock")
@@ -20,8 +24,9 @@ const routes = (app) => {
 
 	app
 		.route("/stock/:productName")
-		.get(getProductWithID)
-		.put(updateProduct)
+		//.get(getProductWithID) 
+		.get(getLevel)
+		//.put(updateProduct)
 		//.delete(deleteProduct);
 		.post (decreaseStock)
 };

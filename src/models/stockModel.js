@@ -1,4 +1,5 @@
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
+//import mongoose-long from "mongoose";
 
 const Schema = mongoose.Schema;
 
@@ -14,10 +15,10 @@ export const StockSchema = new Schema(
 			type: Number,
 			required: "enter the quantity",
 		},
-		creationDate: {
-			type: Date,
-			default: Date.now,
-		},
+		// creationDate: {
+		// 	type: Date,
+		// 	default: Date.now,
+		// },
 	},
 	{
 		timestamps: {
