@@ -66,10 +66,10 @@ export const decreaseStock = (req, res) => {
 			if (err) {
 				res.send(err);
 			}
-			var bdQty = product.quantity; // Quantidade na bd
-			var newQty = req.body.quantity; //quantidade no campo
+			let bdQty = product.quantity; // Quantidade na bd
+			let newQty = req.body.quantity; //quantidade no campo
 
-			var result = bdQty - newQty;
+			let result = bdQty - newQty;
 			product.quantity = result;
 			if (result < 0)
 				res.json({
