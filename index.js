@@ -12,6 +12,7 @@ mongoose.Promise = global.Promise; //I'll wait for a response from Mongo
 mongoose.connect("mongodb://localhost/PROJdb", {
 	useNewUrlParser: true,
 	useUnifiedTopology: true,
+	useCreateIndex: true,
 });
 
 // bodyparser setup

@@ -7,7 +7,7 @@ export const StockErrorSchema = new Schema({
 		type: String,
 	},
 	errorCode: {
-		type: String,
+		type: Number,
 	},
 	errorMessage: {
 		type: String,

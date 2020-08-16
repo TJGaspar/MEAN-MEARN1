@@ -8,21 +8,18 @@ export const StockSchema = new Schema(
 		productName: {
 			type: String,
 			required: "enter the product name",
-			uppercase: true,
+			lowercase: true,
 			unique: true,
 		},
 		quantity: {
 			type: Number,
 			required: "enter the quantity",
+			validate:  Number.isInteger,
 		},
-		// creationDate: {
-		// 	type: Date,
-		// 	default: Date.now,
-		// },
+
 	},
 	{
-		timestamps: {
-			createdAt: "create_at",
-		},
+		timestamps: true,
+		versionKey: false,
 	}
 );

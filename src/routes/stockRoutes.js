@@ -1,15 +1,9 @@
 import {
 	addNewProduct,
 	getProduct,
-	getProductWithID,
-	updateProduct,
-	deleteProduct,
 	decreaseStock,
+	getLevel,
 } from "../controllers/stockController";
-
-import {
-	getLevel,	
-} from "../controllers/stockLevelInfoController"
 
 const routes = (app) => {
 	app
@@ -24,11 +18,8 @@ const routes = (app) => {
 
 	app
 		.route("/stock/:productName")
-		//.get(getProductWithID) 
 		.get(getLevel)
-		//.put(updateProduct)
-		//.delete(deleteProduct);
-		.post (decreaseStock)
+		.post(decreaseStock);
 };
 
 export default routes;
