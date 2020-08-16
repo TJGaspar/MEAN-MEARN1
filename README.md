@@ -38,7 +38,7 @@ How to use:
   -On Postman choose "x-www-form-urlencoded"
   -Choose Post and insert on the url text-box "localhost:3000/stock/"
   -On the body use:
-      "productName" as a key and as a value insert a name por the product
+      "productName" as a key and as a value insert a name for the product
       "quantity" as a key and as a value insert the quantity of stock for this product.
   -Press send
   
