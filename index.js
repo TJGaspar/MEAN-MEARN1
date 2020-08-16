@@ -8,8 +8,8 @@ const PORT = 3000;
 const options = { autoIndex: true }; //allowed unique productName
 
 //mongoose connection (connection between mongo and the API)
-mongoose.Promise = global.Promise; //I'll wait for a response from Mongo
-mongoose.connect("mongodb://localhost/PROJdb", {
+mongoose.Promise = global.Promise; //Waits for a response from Mongo
+mongoose.connect("mongodb://localhost/PROJdb", {//The db used for this API
 	useNewUrlParser: true,
 	useUnifiedTopology: true,
 	useCreateIndex: true,

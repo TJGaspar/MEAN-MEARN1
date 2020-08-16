@@ -11,7 +11,6 @@ const Errors = mongoose.model("Error", StockErrorSchema);
 export const addNewProduct = (req, res) => {
 	let newProduct = new Product(req.body);
 	newProduct.save((err, product) => {
-		//{ productName: req.params.productName }
 		if (err) {
 			let CreateNewError = CreateErrors(err, req.body.productName);
 			res.send(CreateNewError);
@@ -27,16 +26,15 @@ export const addNewProduct = (req, res) => {
 export const getProduct = (req, res) => {
 	Product.find({}, (err, product) => {
 		if (err) {
-			console.log(`ESTE ERRO ${req.body.productName}`);
+			console.log(err);
 			let CreateNewError = CreateErrors(err, undefined);
-
 			res.send(CreateNewError);
 		}
 		res.json(product);
 	});
 };
 
-//Decrements the stock
+//Decrements the stock of a product
 export const decreaseStock = (req, res) => {
 	Product.findOne(
 		{ productName: req.params.productName }, //variável no url
@@ -44,7 +42,6 @@ export const decreaseStock = (req, res) => {
 		(err, product) => {
 			if (err || !product || req.body.quantity < 0) {
 				let CreateNewError = CreateErrors(err, req.body.productName);
-
 				console.log(err);
 				res.send(CreateNewError);
 			} else {
@@ -53,7 +50,6 @@ export const decreaseStock = (req, res) => {
 				let result = bdQty - newQty;
 				product.quantity = result;
 				if (result < 0) {
-					console.log(`ESTE ERRO ${req.body.productName}`);
 					let CreateNewError = CreateErrors(err, req.body.productName);
 					res.json({
 						CreateNewError,
@@ -77,7 +73,7 @@ export const decreaseStock = (req, res) => {
 		}
 	);
 };
-
+//Checks the stock of a product
 export const getLevel = (req, res) => {
 	Product.findOne(
 		{ productName: req.params.productName }, //variável no url
@@ -85,16 +81,13 @@ export const getLevel = (req, res) => {
 		(err, product) => {
 			if (err || !product) {
 				let CreateNewError = CreateErrors(err, req.body.productName);
-
 				res.json(CreateNewError);
 			} else {
-				console.log("caiu aqui!!!!!!2");
 				var x = translateStock(product.quantity);
 				let stockLevel = new Level();
 				stockLevel.productName = product.productName;
 				stockLevel.stockLevelAvailability = translateStock(product.quantity);
 				stockLevel.lastUpdate = product.updatedAt;
-
 				res.json(stockLevel);
 			}
 		}
@@ -118,44 +111,10 @@ function translateStock(stock) {
 //Create Errors
 function CreateErrors(err, name) {
 	var NewError = new Errors(err, name);
-
 	NewError.productName = name;
-
 	NewError.errorCode = 400;
 	NewError.errorMessage = "BAD REQUEST";
 	console.log(`An Error occured : ${NewError}`);
 
 	return NewError;
 }
-
-// export const getProductWithID = (req, res) => {
-// 	Product.findById(req.params.productID, (err, product) => {
-// 		if (err) {
-// 			res.send(err);
-// 		}
-// 		res.json(product);
-// 	});
-// };
-
-// export const updateProduct = (req, res) => {
-// 	Product.findOneAndUpdate(
-// 		{ productName: req.params.productName },
-// 		req.body,
-// 		{ new: true, useFindAndModify: false },
-// 		(err, product) => {
-// 			if (err) {
-// 				res.send(err);
-// 			}
-// 			res.json({ product, message: `${req.params.productName} was updated` });
-// 		}
-// 	);
-// };
-
-// export const deleteProduct = (req, res) => {
-// 	Product.remove({ productName: req.params.productName }, (err, product) => {
-// 		if (err) {
-// 			res.send(err);
-// 		}
-// 		res.json({ message: `Product ${req.params.productName} was deleted` });
-// 	});
-// };
