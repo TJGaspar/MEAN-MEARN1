@@ -9,7 +9,8 @@ const options = { autoIndex: true }; //allowed unique productName
 
 //mongoose connection (connection between mongo and the API)
 mongoose.Promise = global.Promise; //Waits for a response from Mongo
-mongoose.connect("mongodb://localhost/PROJdb", {//The db used for this API
+mongoose.connect("mongodb://localhost/PROJdb", {
+	//The db used for this API
 	useNewUrlParser: true,
 	useUnifiedTopology: true,
 	useCreateIndex: true,
@@ -26,3 +27,4 @@ app.get("/", (req, res) =>
 );
 
 app.listen(PORT, () => console.log(`Your server is running on port ${PORT}`));
+//done
