@@ -83,7 +83,6 @@ export const getLevel = (req, res) => {
 				let CreateNewError = CreateErrors(err, req.body.productName);
 				res.json(CreateNewError);
 			} else {
-				var x = translateStock(product.quantity);
 				let stockLevel = new Level();
 				stockLevel.productName = product.productName;
 				stockLevel.stockLevelAvailability = translateStock(product.quantity);
