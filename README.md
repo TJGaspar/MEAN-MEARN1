@@ -21,7 +21,8 @@ The existing functions are:
 *********************************************************************************
 Requirements
 *********************************************************************************
-To use this API youll need to install postman or a similar tool
+To use this API youll need to install postman or a similar tool.
+Also make sure the port 3000 is free
 
 *********************************************************************************
 How to install
@@ -59,4 +60,6 @@ How to use:
         "quantity" as a key and as a value insert the quantity of stock to remove.
     -Press send 
 
-  
+*********************************************************************************
+Thank You
+*********************************************************************************
