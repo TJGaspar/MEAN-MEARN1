@@ -49,7 +49,7 @@ How to use:
 
 . Check the stock of a certain product:
     -On Postman choose "x-www-form-urlencoded"
-    -Choose Post and insert on the url text-box "localhost:3000/stock/<name-of-the-product>" 
+    -Choose GET and insert on the url text-box "localhost:3000/stock/<name-of-the-product>" 
     -Press send
   
 . Decrease stock quantity of a product:
